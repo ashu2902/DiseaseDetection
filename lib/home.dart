@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //init ml model finction
   loadModel() async {
-    String res = await Tflite.loadModel(
+    await Tflite.loadModel(
       model: "assets/model_unquant.tflite",
       labels: "assets/labels.txt",
       numThreads: 1,
@@ -78,48 +78,115 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _height = MediaQuery.of(context).size.height;
+    final _width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('Disease Detection')),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: _image == null
-                      ? Container(
-                          child: Text('no image selected'),
-                          color: Colors.blue,
-                          height: 180,
-                          width: 250,
-                        )
-                      : Container(
-                          child: Image.file(_image),
-                          color: Colors.blue,
-                          height: 200,
-                          width: 350,
-                        )),
-              Container(
-                child: Text(
-                  "name",
-                  textAlign: TextAlign.center,
-                ),
-                color: Colors.red,
-                height: 50,
-                width: MediaQuery.of(context).size.width,
-              ),
-              ElevatedButton(
-                onPressed: getImage,
-                child: Text('Choose from Gallery'),
-              ),
-              ElevatedButton(
-                onPressed: getCameraImage,
-                child: Text('Click from Camera'),
-              )
-            ],
+          automaticallyImplyLeading: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => null,
           ),
-        ));
+          backwardsCompatibility: true,
+          title: Center(
+            child: Text('Disease Detection'),
+          ),
+        ),
+        body: Container(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(50),
+              child: Container(
+                width: _width,
+                child: Text(
+                  'Disease Detection Application',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 22),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Center(
+                  child: _loading
+                      ? Container(
+                          width: _width,
+                          height: _height / 4,
+                          child: Column(
+                            children: [
+                              RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                    text: 'Please provide an Image',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 24,
+                                    ),
+                                    children: [
+                                      TextSpan(text: '\n To proceed further')
+                                    ]),
+                              ),
+                            ],
+                          ))
+                      : Container(
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                height: 250,
+                                child: Image.file(_image),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              _output != null
+                                  ? Text(
+                                      'This plant is ${_output[0]['label']}',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 20),
+                                    )
+                                  : Container(
+                                      height: 50,
+                                      child: Text(
+                                        'Select Image',
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 20),
+                                      ),
+                                    ),
+                            ],
+                          ),
+                        )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                alignment: Alignment.center,
+                width: _width,
+                child: SizedBox(
+                  width: _width - 270,
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: getImage,
+                        child: Text(
+                          'Choose from Gallery',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: getCameraImage,
+                        child: Text(
+                          'Click from Camera',
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        )));
   }
 }
