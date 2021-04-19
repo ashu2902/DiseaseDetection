@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "307294066685",
+    "project_id": "biotech-b4bd9",
+    "storage_bucket": "biotech-b4bd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307294066685:android:4426097aa8ed65471bab94",
+        "android_client_info": {
+          "package_name": "com.example.biotech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307294066685-ugk3cuvaprfii0rt5m7eb8triv8lkcds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxyJ0DXfGB1P_5s-j-DCmkyTsSc6PO4s4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307294066685-ugk3cuvaprfii0rt5m7eb8triv8lkcds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
